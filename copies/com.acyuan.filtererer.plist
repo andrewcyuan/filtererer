@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs$
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.acyuan.filtererer</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/setup-proxy.sh</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/dev/null</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/filtererer.err</string>
+    </dict> 
+</plist>
