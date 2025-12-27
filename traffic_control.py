@@ -1,28 +1,24 @@
-"""
-This is the script to pass to mitmproxy.
-"""
-
 from mitmproxy import http
 
-blocked_site_slugs = [
-    "instagram.com",
-    "x.com",
-    "youtube.com/shorts"
-]
+# Sites to block completely
+BLOCKED_HOSTS = ["instagram.com", "x.com", "twitter.com"]
+# Redirect target
+REDIRECT = "https://google.com"
 
-class TrafficShaper:
+class Blocker:
     def request(self, flow: http.HTTPFlow) -> None:
-        # Load slugs on every request to allow dynamic updates without restart
-        
-        # 1. Get the full URL
-        url = flow.request.pretty_url
+        host = flow.request.pretty_host
+        path = flow.request.path
 
-        if any([slug in url for slug in blocked_site_slugs]):
-            print(f"DEBUG: Redirecting {url}")
-            flow.request.host = "calendar.google.com"
-            # Change path (everything after host)
-            flow.request.path = ""
+        # Check for blocked hosts or the specific YouTube Shorts path
+        is_blocked_host = any(host == b or host.endswith("." + b) for b in BLOCKED_HOSTS)
+        is_yt_shorts = (host in ["www.youtube.com", "youtube.com"]) and path.startswith("/shorts")
 
-addons = [
-    TrafficShaper()
-]
+        if is_blocked_host or is_yt_shorts:
+            flow.response = http.Response.make(
+                302,
+                b"",
+                {"Location": REDIRECT}
+            )
+
+addons = [Blocker()]
