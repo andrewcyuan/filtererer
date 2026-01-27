@@ -14,7 +14,7 @@ REDIRECT = "https://google.com"
 
 class Blocker:
     def request(self, flow: http.HTTPFlow) -> None:
-	host = flow.request.pretty_host
+        host = flow.request.pretty_host
         path = flow.request.path
 
         # Check for blocked hosts or the specific YouTube Shorts path
