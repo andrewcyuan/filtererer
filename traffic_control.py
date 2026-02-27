@@ -5,8 +5,8 @@ from datetime import datetime
 BLOCKED_HOSTS = ["instagram.com", "x.com", "twitter.com"]
 
 TIME_SENSITIVE_HOSTS = ["youtube.com"]
-# between 9:30pm and 8:00am
-TIME_CUTOFF_START = 21 * 60 + 30
+# between 10:00pm and 8:00am
+TIME_CUTOFF_START = 22 * 60
 TIME_CUTOFF_END = 8 * 60 + 00
 
 # Redirect target
